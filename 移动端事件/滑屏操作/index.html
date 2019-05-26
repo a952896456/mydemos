@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+	maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+		body {
+			margin: 0;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		#wrap {
+			height: 100vh;
+			overflow: hidden;
+			border: 5px solid #f00;
+			box-sizing: border-box;
+		}
+
+		#list {
+			transition: 0.3s;
+		}
+
+		#list li {
+			font-size: 24px;
+			line-height: 50px;
+		}
+	</style>
+</head>
+<body>
+    <div id="wrap">
+		<ul id="list">
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表10</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表1</a></li>
+			<li><a href="#">这是一个很长很长的列表20</a></li>
+		</ul>
+    </div>
+    
+    <script src="./transform.js"></script>
+    <script>
+        var wrap = document.getElementById('wrap');
+        var list = document.getElementById('list');
+        let startTop = 0; // 手指按下的距离
+        let startPointY = 0; // 按下时元素的距离
+        let movePointY = 0; // 移动的距离
+
+        Transform(list);
+
+        wrap.addEventListener('touchstart', e => {
+            startPointY = e.changedTouches[0].pageY;
+            startTop = list.translateY;
+            // console.log(e);
+        })
+
+        wrap.addEventListener('touchmove', e => {
+            movePointY = e.changedTouches[0].pageY - startPointY;
+            list.translateY = movePointY + startTop;
+            e.preventDefault();
+        })   
+    
+    
+    
+    </script>
+</body>
+</html>

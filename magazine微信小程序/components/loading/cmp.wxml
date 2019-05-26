@@ -1,0 +1,6 @@
+<!-- 加载组件 -->
+
+<view class="container" hidden="{{hidden}}">
+    <view class="circle"></view>
+    <view class="circle circle1"></view>
+</view>

@@ -1,0 +1,166 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+html, body, .wrapper {
+    width: 100%;
+    height: 100%;
+}
+.wrapper {
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper .content {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper .content .item {
+    width: 16%;
+    height: 100%;
+    /* border: 1px solid #fff; */
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #333;
+    transition: width 0.5s linear, height 0.5s linear 0.5s;
+}
+.wrapper .content .item .inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s linear;
+}
+.wrapper .content .item .inner .bg {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+    transition: all 0.2s linear;
+}
+.wrapper-active .content .item .inner .bg,
+.wrapper .content .item:hover .inner .bg {
+    opacity: 1;
+}
+.wrapper .content .item:nth-of-type(1) .inner .bg {
+    background-image: url('../img/1.jpg');
+}
+.wrapper .content .item:nth-of-type(2) .inner .bg {
+    background-image: url('../img/2.jpg');
+}
+.wrapper .content .item:nth-of-type(3) .inner .bg {
+    background-image: url('../img/3.jpg');
+}
+.wrapper .content .item:nth-of-type(4) .inner .bg {
+    background-image: url('../img/4.jpg');
+}
+.wrapper .content .item:nth-of-type(5) .inner .bg {
+    background-image: url('../img/5.jpg');
+}
+.wrapper .content .item:nth-of-type(6) .inner .bg {
+    background-image: url('../img/6.jpg');
+}
+.wrapper .content .item .inner .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.wrapper .content .item .inner .title h2 {
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.2s linear;
+}
+.wrapper .content .item:hover .inner .title h2 {
+    transform: scale(1.5);
+}
+/* 初始下到上动画 */
+.init .content .item .inner {
+    transform: translateY(100%);
+}
+.wrapper .content .item:nth-of-type(1) .inner {
+    transition-delay: 0.2s;
+}
+.wrapper .content .item:nth-of-type(2) .inner {
+    transition-delay: 0.3s;
+}
+.wrapper .content .item:nth-of-type(3) .inner {
+    transition-delay: 0.4s;
+}
+.wrapper .content .item:nth-of-type(4) .inner {
+    transition-delay: 0.5s;
+}
+.wrapper .content .item:nth-of-type(5) .inner {
+    transition-delay: 0.6s;
+}
+.wrapper .content .item:nth-of-type(6) .inner {
+    transition-delay: 0.7s;
+}
+
+/* 点击 */
+.wrapper .content .item.active {
+    width: 100%;
+}
+.wrapper-active .content .item:not(.active) {
+    width: 0%;
+    height: 0%;
+}
+.wrapper-active .content .item {
+    transition: height 0.5s linear, width 0.5s linear 0.5s;
+}
+.wrapper .content .item .header {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    left: 0;
+    top: 30px;
+    opacity: 0;
+}
+.wrapper .content .item .header .con {
+    margin-left: 30px;
+    color: #fff;
+    font-size: 24px;
+}
+.wrapper-active .content .item .header {
+    opacity: 1;
+    transition: all 0.2s linear 1s;
+}
+.wrapper-active .content .item .title {
+    opacity: 0;
+}
+/* close */
+.wrapper .content .item .header .close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 30px;
+    top: 0;
+}
+.wrapper .content .item .header .close::before,
+.wrapper .content .item .header .close::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -2px;
+}
+.wrapper .content .item .header .close::before {
+    transform: rotate(45deg);
+}
+.wrapper .content .item .header .close::after {
+    transform: rotate(-45deg);
+}
+.wrapper .content .item.active .header .close {
+    transform: rotate(360deg);
+    transition: transform 0.5s linear 1s;
+}

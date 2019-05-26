@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+	maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #banner {
+            position: relative;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        #banner .wrap {
+            width: 300vw;
+            display: flex;
+        }
+
+        #banner .wrap a {
+            width: 100vw;
+        }
+
+        #banner .wrap a img {
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        #banner .circle {
+            position: absolute;
+            bottom: 3vw;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+        }
+
+        #banner .circle span {
+            width: 3vw;
+            height: 3vw;
+            margin: 0 2vw;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        #banner .circle span.active {
+            background-color: #f40;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="banner">
+        <!-- 图片 -->
+        <div class="wrap">
+            <a href="#">
+                <img src="./images/banner_01.jpg" alt="">
+            </a>
+            <a href="#">
+                <img src="./images/banner_02.jpg" alt="">
+            </a>
+            <a href="#">
+                <img src="./images/banner_03.jpg" alt="">
+            </a>
+        </div>
+        <!-- 小圆点 -->
+        <div class="circle">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </section>
+
+    <script src="./transform.js"></script>
+    <script>
+        let banner = document.querySelector('#banner'),
+            wrap = document.querySelector('.wrap'),
+            span = document.querySelectorAll('.circle span'),
+            imgWidth = banner.offsetWidth,
+            index = 0,
+            prevIndex = 0;
+
+        let startX = 0, // 元素初始位置
+            startPointX = 0, // 手指按下的位置
+            movePointX = 0; // 移动的距离
+
+        Transform(wrap);
+
+        // 复制一份
+        wrap.innerHTML += wrap.innerHTML;
+        let wrapLength = wrap.children.length; // 图片的数量
+        wrap.style.width = imgWidth * wrapLength + 'px';
+
+        banner.addEventListener('touchstart', e => {
+                // clearInterval(timer);
+                startPointX = e.changedTouches[0].pageX;
+
+                if (index == 0) {
+                    index = wrapLength / 2;
+                }
+
+                if (index == wrapLength - 1) {
+                    index = (wrapLength / 2) - 1;
+                }
+
+                wrap.style.transition = '';
+                wrap.translateX = -imgWidth * index;
+                startX = wrap.translateX;
+
+
+            e.preventDefault();
+        })
+
+        banner.addEventListener('touchmove', e => {
+            movePointX = e.changedTouches[0].pageX - startPointX;
+            wrap.translateX = movePointX + startX;
+        })
+
+        banner.addEventListener('touchend', e => {
+            // 回弹效果
+            let backWidth = imgWidth / 8;
+
+            if (Math.abs(movePointX) > backWidth) {
+                if (movePointX < 0) { // 往左边拖
+                    index++;
+                }
+                if (movePointX > 0) { // 往右边拖
+                    index--;
+                }
+            }
+
+            wrap.style.transition = '0.3s';
+            wrap.translateX = -imgWidth * index;
+
+            // 修改小圆点的样式
+            /* 
+                现在图片的索引：0，1，2，3，4，5 => 0,1,2,0,1,2
+                span标签的索引：0，1，2
+            */
+            span[prevIndex].className = '';
+            span[index % (wrapLength / 2)].className = 'active';
+            prevIndex = index % (wrapLength / 2);
+
+            // timer = setInterval(autoMove, 1500);
+        });
+
+
+        // var timer;
+        // timer = setInterval(autoMove, 1500);
+        // function autoMove() {
+        //     index++;
+        //     wrap.style.transition = '0.3s';
+        //     wrap.translateX = -imgWidth * (index % (wrapLength / 2));
+        //     span[prevIndex].className = '';
+        //     span[index % (wrapLength / 2)].className = 'active';
+        //     prevIndex = index % (wrapLength / 2);
+        // }
+
+    </script>
+</body>
+
+</html>

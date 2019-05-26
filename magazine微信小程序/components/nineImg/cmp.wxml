@@ -1,0 +1,18 @@
+<!-- 九图组件 -->
+
+<view class="container">
+    <view class="img-container">
+        <image  class="image"
+                wx:for="{{imgArr}}" 
+                wx:key="*this" 
+                catch:tap="onTap" 
+                src="{{item}}"
+                data-index="{{index}}"
+                wx:if="{{index < 9}}" />
+
+        <text class="img-num" wx:if="{{imgArr.length > 9}}">{{imgArr.length}}</text>
+    </view>
+    <view class="text-container">
+        <text >{{mainTitle}}高科技和规划局高合金钢</text>
+    </view>
+</view>

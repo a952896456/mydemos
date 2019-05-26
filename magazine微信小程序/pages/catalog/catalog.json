@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "he-subscribe": "/components/subscribe/cmp",
+    "he-tagList": "/components/tagList/cmp",
+    "he-add": "/components/add/cmp",
+    "he-search": "/components/search/cmp"
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+	maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+            transform: rotateX(30deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+
+
+
+
+    <script>
+        const css = (ele, attr, value) => {
+
+            if (!value) {
+                if (attr == 'transform') {
+                    value = getComputedStyle(ele, null)[attr];
+                } else {
+                    value = parseFloat(getComputedStyle(ele, null)[attr]);
+                }
+
+            }
+
+            if (attr = 'opacity') {
+                ele.style[attr] = value;
+            } else {
+                ele.style[attr] = value + 'px';
+            }
+
+            return value;
+        }
+
+        const div = document.querySelector('div');
+        console.log(css(div, 'width'));
+        console.log(css(div, 'transform'));
+        css(div, 'opacity', 0.5);
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!-- components/article/cmp.wxml -->
+<view class="container">
+    <view class="mark-container">
+        <image class="avatar" src="{{articleDetail.mark.avatar}}" />
+        <text class="text">{{articleDetail.mark.people}}等{{articleDetail.mark.count}}人马克了</text>
+    </view>
+    <view>
+        <he-bigImg wx:if="{{articleDetail.type === 0}}" img-src="{{articleDetail.imgArray[0]}}" main-title="{{articleDetail.mainTitle}}"></he-bigImg>
+        <he-nineImg wx:elif="{{articleDetail.type === 1}}" img-arr="{{articleDetail.imgArray}}" main-title="{{articleDetail.mainTitle}}"></he-nineImg>
+        <he-imgText wx:elif="{{articleDetail.type === 2}}" main-title="{{articleDetail.mainTitle}}" sub-head="{{articleDetail.subHead}}" img-src="{{articleDetail.imgArray[0]}}"></he-imgText>
+        <he-video wx:elif="{{articleDetail.type === 3}}" main-title="{{articleDetail.mainTitle}}" src="{{articleDetail.video.src}}" duration="{{articleDetail.video.duration}}" poster="{{articleDetail.video.poster}}" video-id="{{articleDetail.video.id}}"></he-video>
+        <he-pureText wx:else main-title="{{articleDetail.mainTitle}}" sub-head="{{articleDetail.subHead}}"></he-pureText>
+    </view>
+    <view class="control-container">
+        <view>
+            <he-tag tag="{{articleDetail.tag}}" tag-id="{{articleDetail.tagId}}"></he-tag>
+        </view>
+        <view class="control-box">
+            <he-more class="box" tag="{{articleDetail.tag}}"></he-more>
+            <he-imgBtn open-type="share" class="box img-btn">
+                <image src="/images/mark/relay.png" slot="image" />
+            </he-imgBtn>
+            <he-like class="box" like="{{likeStatus}}" catch:like="onLike"></he-like>
+        </view>
+    </view>
+</view>
+<!-- type
+2 图文
+1 9宫
+3 video
+4 纯文字
+0 大图 -->

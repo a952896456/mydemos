@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+
+    <script>
+        // Father.prototype.name = 'hehe';
+        // function Father() {
+
+        // }
+        // function Son() {
+
+        // }
+        // // 继承
+        // // function inherit(Target, Origin) {
+        // //     Target.prototype = Origin.prototype;
+        // // }
+        // inherit1(Son, Father);
+        // var son = new Son();
+        // var father = new Father();
+
+
+        // // 圣杯模式
+        // function inherit1(Target, Origin) {
+        //     function F() { }
+        //     F.prototype = Origin.prototype;
+        //     Target.prototype = new F();
+        //     Target.prototype.constructor = Target;
+        //     Target.prototype.uber = Origin.prototype;
+        // }
+
+
+
+
+        // var inherit = (function () {
+        //     var F = function () { };
+        //     return function (Target, Origin) {
+        //         F.prototype = Origin.prototype;
+        //         Target.prototype = new F();
+        //         Target.prototype.constructor = Target;
+        //         Target.prototype.uber = Origin.prototype;
+        //     }
+        // }())
+
+
+        // 私有化变量
+        // var name = 'hehe';
+        // var init = (function () {
+        //     var name = '123';
+        //     function callName() {
+        //         console.log(name);
+        //     }
+        //     return function () {
+        //         callName();
+        //     }
+        // } () );
+
+
+
+
+        // 函数变成表达式会忽略他的名字
+        // var x = 1;
+        // if(function f () {}) {
+        //     x += typeof f;
+        // }
+        // console.log(x);
+        // 1undefined
+
+
+        // 深度克隆
+        // 遍历对象
+        // 1.判断是不是原始值  typeof
+        // 2.判断是数组还是对象  Object.prototype.toString.call()
+        // 3.建立相应的数组或对象
+        // 递归
+
+        // function deepClone(origin, target) {
+        //     var target = target || {},
+        //         toStr = Object.prototype.toString,
+        //         ArrStr = '[object Array]';
+        //     for(var prop in origin) {
+        //         if(origin.hasOwnProperty(prop)) {
+        //             if(origin[prop] !== 'null' && typeof(origin[prop]) == 'object') {
+        //                 target[prop] = toStr.call(origin[prop]) == ArrStr ? [] : {};
+        //                 deepClone(origin[prop], target[prop]);
+        //             } else {
+        //                 target[prop] = origin[prop];
+        //             }
+        //         }
+        //     }
+        //     return target;
+        // }
+
+        // var obj = {
+        //     name: 'he',
+        //     age: 18,
+        //     card: ['123', '456', '789'],
+        //     son: {
+        //         name: 'wo',
+        //         age: 10,
+        //     }
+        // }
+
+        // var obj1 = {}
+
+
+
+
+
+        // 数组 push方法
+        // var arr = [];
+        // Array.prototype.push = function () {
+        //     for(var i = 0; i < arguments.length; i++) {
+        //         this[this.length] = arguments[i];
+        //     }
+        //     return this.length;
+        // }
+
+
+        // sort()
+        // 1.必须写俩形参
+        // 2.看返回值 （1）当返回值为负数时，那么前面的数放在前面
+        //           （2）为正数，那么后面的数在前
+        //            (3) 为0  不动
+        // var arr = [1, 3, 10, 8, 2];
+        // 升序
+        // arr.sort(function (a, b) {
+        //     // if(a > b) {
+        //     //     return 1;
+        //     // }else {
+        //     //     return -1;
+        //     // }
+        //     return a - b;
+        // })
+
+        // 降序
+        // arr.sort(function (a, b) {
+        //     // if(a < b) {
+        //     //     return 1;
+        //     // }else {
+        //     //     return -1;
+        //     // }
+        //     return b - a;
+        // })
+
+
+        // 给一个有序的数组乱序
+        // var arr = [1,2,3,4,5,6,7];
+        // arr.sort(function () {
+        //     return Math.random() - 0.5;
+        // })
+
+
+        // 封装type方法 区分原始值 引用值 包装类
+        // function type(target) {
+        //     var ret = typeof(target);
+        //     var temple = {
+        //         '[object Array]' : 'array',
+        //         '[object Object]' : 'object',
+        //         '[object Number]' : 'number - object',
+        //         '[object Boolean]' : 'boolean - object',
+        //         '[object String]' : 'string - object'
+        //     }
+        //     if(target === null) {
+        //         return 'null';
+        //     }else if(ret == 'object') {
+        //         var str = Object.prototype.toString.call(target);
+        //         return temple[str];
+        //     }else {
+        //         return ret;
+        //     }
+        // }
+
+
+
+        // 数组去重
+        // var arr = [1,1,1,2,2,3,3,4,1,2];
+        // Array.prototype.unique = function () {
+        //     var obj = {};
+        //     var arr = [];
+        //     var len = this.length;
+        //     for(var i = 0; i < len; i++) {
+        //         if(!obj[this[i]]) {
+        //             obj[this[i]] = this[i] + 1;
+        //             arr.push(this[i]);
+        //         }
+        //     }
+        //     return arr;
+        // }
+
+        
+
+        // 找出一个元素的第N层父级元素
+        Element.prototype.elemParent = function (n) {
+            var type = typeof(n),
+                elem = this;
+
+            if (type === 'undefined' || type !== 'number') {
+                return elem.parentNode;
+            } else if (n < 0) {
+                return undefined;
+            }
+
+            while (n) {
+                elem = elem.parentNode;
+                n--;
+            }
+            return elem;
+        }
+
+
+
+        // 寻找兄弟元素节点
+        Element.prototype.elemSibling = function (n) {
+            var elem = this;
+
+            // if (n > 0) {
+            //     while (n) {
+            //         if (elem.nextElementSibling) {
+            //             elem = elem.nextElementSibling;
+            //         } else {
+            //             for (elem = elem.nextSibling; elem && elem.nodeType !== 1; elem = elem.nextSibling);
+            //         }     
+            //         n--;
+            //     }
+            // } else if (n < 0) {
+            //     while (n) {
+            //         if (elem.previousElementSibling) {
+            //             elem = elem.previousElementSibling;
+            //         } else {
+            //             for (elem = elem.previousSibling; elem && elem.nodeType !== 1; elem = elem.previousSibling);
+            //         }     
+            //         n++;
+            //     }
+            // }
+
+            while (n) {
+                if (n > 0) {
+                    elem = elem.nextSibling;
+                    while (elem && elem.nodeType !== 1) {
+                        elem = elem.nextSibling;
+                    }
+                    n--;
+                } else if (n < 0) {
+                    elem = elem.previousSibling;
+                    while (elem && elem.nodeType !== 1) {
+                        elem = elem.previousSibling;
+                    }
+                    n++;
+                }
+            }
+
+            return elem;
+        }
+
+
+
+        // 判断是否含有元素节点
+        Element.prototype.hasChildren = function () {
+            var children = this.childNodes,
+                len = children.length,
+                item;
+
+            for (var i = 0; i < len; i++) {
+                item = children[i];
+
+                if (item.nodeType === 1) {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+
+        // 获取所有的元素节点
+        function getFullChildren (node) {
+            var children = node.childNodes,
+                len = children.length,
+                item;
+
+            if (node && node.nodeType === 1) {
+                console.log(node);
+            }
+
+            for (var i = 0; i < len; i++) {
+                item = children[i];
+
+                if (item.nodeType === 1) {
+                    getFullChildren(item);
+                }
+            }
+        }
+
+
+        // 获取距离Body的位置
+        function getElementDocPosition (el) {
+            var parent = el.offsetParent,
+                offsetLeft = el.offsetLeft,
+                offsetTop = el.offsetTop;
+
+            while (parent) {
+                offsetLeft += parent.offsetLeft;
+                offsetTop += parent.offsetTop;
+                parent = parent.offsetParent;
+            }
+
+            return {
+                left: offsetLeft,
+                top: offsetTop
+            }
+        }
+
+
+
+
+        // 封装insertAfter方法
+        // Element.prototype.insertAfter = function (targetNode, afterNode) {
+        //     var beforeNode = afterNode.nextElementSibling;
+        //     if (beforeNode == null) {
+        //         this.appendChild(targetNode);
+        //     } else {
+        //         this.insertBefore(targetNode, beforeNode);
+        //     }
+        // }
+        // <div>
+        // <p></p>
+        // <span></span>
+        // <strong></strong>
+        // </div>
+        // var div = document.getElementsByTagName('div')[0];
+        // var span = document.getElementsByTagName('span')[0];
+        // var strong = document.getElementsByTagName('strong')[0];
+        // var b = document.createElement('b');
+
+
+
+
+        // 封装兼容性方法，求滚动轮滚动距离
+        function getScrollOffset() {
+            if(window.pageXOffset) {
+                return {
+                    x: window.pageXOffset,
+                    y: window.pageYOffset
+                }
+            }else {
+                return {
+                    x: document.body.scrollLeft + document.documentElement.scrollLeft,
+                    y: document.body.scrollTop + document.documentElement.scrollTop
+                }
+            }
+        }
+
+
+
+        // 兼容e.pageX和e.pageY
+        function pagePos (e) {
+            var sLeft = getScrollOffset().x,
+                sTop = getScrollOffset().y,
+                cLeft = document.documentElement.clientX || 0,
+                cTop = document.documentElement.clientY || 0;
+
+            return {
+                X: e.clientX + sLeft - cLeft,
+                Y: e.clientY + sTop - cTop
+            }
+        }
+
+        document.onclick = function (e) {
+            var e = e || window.event;
+
+            console.log(e.pageY, pagePos(e).Y);
+        }
+
+
+
+
+
+
+        // 封装兼容性方法，返回浏览器视口尺寸
+        // function getViewportOffset() {
+        //     if(window.innerHeight) {
+        //         return {
+        //             height: window.innerHeight,
+        //             width: window.innerWidth
+        //         }
+        //     }else {
+        //         if(document.compatMode === 'BackCompat') {
+        //             return {
+        //             height: document.body.clientHeight,
+        //             width: document.body.clientWidth
+        //             }
+        //         }else {
+        //             return {
+        //             height: document.documentElement.clientHeight,
+        //             width: document.documentElement.clientWidth
+        //             }
+        //         }
+        //     }
+        // }
+
+
+
+
+        // 封装兼容性方法，获取元素css属性
+        function getStyle(ele, prop) {
+            if (window.getComputedStyle) {
+                return window.getComputedStyle(ele, null)[prop];
+            } else {
+                return ele.currentStyle[prop];
+            }
+        }
+
+        // function getStyle(ele, prop) {
+        //     if (window.getComputedStyle) {
+            3.3
+        //         if (prop) {
+        //             return window.getComputedStyle(ele, null)[prop];
+        //         } else {
+        //             return window.getComputedStyle(ele, mull);
+        //         }
+        //     } else {
+        //         if (prop) {
+        //             return ele.currentStyle[prop];
+        //         } else {
+        //             return ele.currentStyle;
+        //         }
+        //     }
+        // }
+
+
+
+        // 封装兼容性方法,给对象绑定事件
+        function addEvent(ele, type, handle) {
+            if (ele.addEventListener) {
+                ele.addEventListener(type, handle, false);
+            } else if (ele.attachEvent) {
+                ele.attachEvent('on' + type, function () {
+                    handle.call(ele);
+                })
+            } else {
+                ele['on' + type] = handle;
+            }
+        }
+
+
+
+
+        // 封装兼容性方法，取消事件冒泡事件
+        function stopBubble(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            } else {
+                e.cancelBubble = true;
+            }
+        }
+
+
+        // 封装阻止默认事件的函数
+        function cancelHandler(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+            }
+        }
+
+
+
+        // 拖拽兼容性方法
+        function drag(ele) {
+            var disX,
+                disY;
+            addEvent(ele, 'mousedown', function (e) {
+                var event = e || window.event;
+                disX = event.clientX - parseInt(getStyle(ele, 'left'));
+                disY = event.clientY - parseInt(getStyle(ele, 'top'));
+                addEvent(document, 'mousemove', mouseMove);
+                addEvent(document, 'mouseup', mouseUp);
+                stopBubble(event);
+                cancelHandler(event);
+            });
+            function mouseMove(e) {
+                var event = e || window.event;
+                ele.style.left = event.clientX - disX + 'px';
+                ele.style.top = event.clientY - disY + 'px';
+            }
+            function mouseUp(e) {
+                var event = e || window.event;
+                document.removeEventListener('mousemove', mouseMove, false);
+            }
+        }
+
+
+
+        var oDiv = document.getElementsByTagName('div')[0];
+        drag(oDiv);
+
+
+
+
+
+        // js按需加载
+        // function loadScript(url, callback) {
+        //     var script = document.createElement('script');
+        //     script.type = 'text/javascript';
+        //     if(script.readyState) {
+        //         script.onreadystatechange = function () {
+        //             if(script.readyState == 'complete' || script.readyState == 'loaded') {
+        //                 callback();
+        //             }
+        //         }
+        //     }else {
+        //         script.onload = function () {
+        //             callback();
+        //         }
+        //     }
+        //     script.src = url;
+        //     document.head.appendChild(script);            
+        // }
+
+        // loadScript('./tool.js', function () { test() });
+
+
+
+
+        var reg = /(\w)\1(\w)\2/;
+        var str = 'aabb';
+        console.log(str.replace(reg, '$2$2$1$1'));
+        console.log(str.replace(reg, function ($, $1, $2) {
+            return $2 + $2 + $1 + $1;
+        }));
+
+
+        // the-first-name
+        // theFirstName
+        var reg = /-(\w)/g;
+        var str = 'the-first-name';
+        console.log(str.replace(reg, function ($, $1) {
+            return $1.toUpperCase();
+        }))
+
+
+
+        // cookie封装函数
+        function getCookie(name) {
+            var name = name + '=';
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == '') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) != -1) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return '';
+        }
+
+
+        // ajax封装
+        function ajaxFunc(method, url, data, callback, flag) {
+            var xhr = null;
+            // 兼容IE
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHttp');
+            }
+
+            method = method.toUpperCase();
+
+            if (method == 'GET') {
+                xhr.open(method, url + '?' + data, flag);
+
+                xhr.send();
+            } else if (method == 'POST') {
+                xhr.open(method, url, flag);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.send(data);
+            }
+
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        console.log(xhr.responseText);
+                        callback(xhr.responseText);
+                    }
+                }
+            }
+        }
+
+        // 向后端存储数据
+        function saveData(url, param) {
+            var result = null;
+            var xhr = null;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            if (typeof param == 'string') {
+                xhr.open('GET', url + '?' + param, false);
+            } else if (typeof param == 'object') {
+                var str = "";
+                for (var prop in param) {
+                    str += prop + '=' + param[prop] + '&';
+                }
+                xhr.open('GET', url + '?' + str, false);
+            } else {
+                xhr.open('GET', url + '?' + param.toString(), false);
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        result = JSON.parse(xhr.responseText);
+                    }
+                }
+            }
+            xhr.send();
+            return result;
+        }
+
+        //匀速运动的封装
+        function startMove(dom, target) {
+            clearInterval(timer);
+            var iSpeed = target - dom.offsetLeft > 0 ? 7 : -7;
+            timer = setInterval(function () {
+                if (Math.abs(target - dom.offsetLeft) < Math.abs(iSpeed)) {
+                    clearInterval(timer);
+                    dom.style.left = target + 'px';
+                } else {
+                    dom.style.left = dom.offsetLeft + iSpeed + 'px';
+                }
+            }, 30);
+        }
+
+
+        // 运动函数封装
+        // function getStyle(obj, attr) {
+        //     if (obj.currentStyle) {
+        //         return obj.currentStyle[attr];
+        //     } else {
+        //         return window.getComputedStyle(obj, false)[attr];
+        //     }
+        // }
+
+        // function startMove(obj, data, func) {
+        //     clearInterval(obj.timer);
+        //     var iSpeed;
+        //     var iCur;
+        //     var name;
+        //     startTimer = obj.timer = setInterval(function () {
+        //         var bStop = true;
+        //         for (var attr in data) {
+        //             if (attr === 'opacity') {
+        //                 name = attr;
+        //                 iCur = parseFloat(getStyle(obj, attr)) * 100;
+        //             } else {
+        //                 iCur = parseInt(getStyle(obj, attr));
+        //             }
+        //             iSpeed = (data[attr] - iCur) / 7;
+
+        //             if (iSpeed > 0) {
+        //                 iSpeed = Math.ceil(iSpeed);
+        //             } else {
+        //                 iSpeed = Math.floor(iSpeed);
+        //             }
+
+        //             if (attr === 'opacity') {
+        //                 obj.style.opacity = (iCur + iSpeed) / 100;
+        //             } else {
+        //                 obj.style[attr] = iCur + iSpeed + 'px';
+        //             }
+        //             if (Math.floor(Math.abs(data[attr] - iCur)) != 0) {
+        //                 bStop = false;
+        //             }
+        //         }
+        //         if (bStop) {
+        //             clearInterval(obj.timer);
+        //             if (name === 'opacity') {
+        //                 obj.style.opacity = data[name] / 100;
+        //             }
+        //             func();
+        //         }
+        //     }, 30);
+        // }
+
+
+        // 封装获取类名的函数
+        // Element.prototype.getElementsByClassName = Document.prototype.getElementsByClassName = 
+        // function (_className) {
+        //     var allDomArray = document.getElementsByTagName('*');
+        //     var lastArray = [];
+
+        //     function trimSpace(strClass) {
+        //         var reg = /\s+/g;
+        //         var newStrClass = strClass.replace(reg, " ");
+        //         return newStrClass;
+        //     }
+
+        //     for(var i = 0; i < allDomArray.length; i++) {
+        //         var lastStrClass = trimSpace(allDomArray[i].className).trim();
+        //         var classArray = lastStrClass.split(" ");
+        //         for(var j = 0; j < classArray.length; j++) {
+        //             if(classArray[j] == _className) {
+        //                 lastArray.push(allDomArray[i]);
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     return lastArray;
+        // }
+
+        // console.log( document.getElementsByClassName('demo') );
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

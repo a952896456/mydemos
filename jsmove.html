@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        /* 缓冲运动 */
+        /* div {
+            width: 100px;
+            height: 100px;
+            background: orange;
+            position: absolute;
+            top: 0;
+            left: 0px;
+        }
+
+        button {
+            margin-top: 150px;
+        }
+
+        span {
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            background: #000;
+            left: 300px;
+            top: 0;
+        } */
+
+        /* 案例 */
+        /* .wrapper {
+            width: 400px;
+            height: 80px;
+            background: orange;
+            position: absolute;
+            top: 200px;
+            left: -400px;
+        }
+
+        .wrapper span {
+            width: 50px;
+            height: 80px;
+            background: red;
+            position: absolute;
+            top: 0px;
+            right: -50px;
+        } */
+
+
+        /* 透明度变化 */
+        /* div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            opacity: 1;
+        } */
+
+
+        /* 不同值运动 */
+        /* div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            opacity: 1;
+            margin-bottom: 100px;
+            border: 5px solid #eee;
+        } */
+
+
+        div {
+            position: absolute;
+            left: 0px;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            opacity: 1;
+        }
+        #topDiv {
+            top: 100px;
+        }
+        #bottomDiv {
+            top: 300px;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <!-- 缓冲运动 -->
+    <!-- <div></div>
+    <span></span>
+    <button id="btn">run</button> -->
+
+
+    <!-- 案例 -->
+    <!-- <div class="wrapper">
+        <span></span>
+    </div> -->
+
+
+    <!-- 透明度变化 -->
+    <!-- <div></div> -->
+
+
+    <!-- 不同值运动 -->
+    <!-- <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+
+    <!-- 对象传值加回调机制 -->
+    <div id="topDiv"></div>
+    <div id="bottomDiv"></div>
+
+    <script>
+        var timer = null;
+        var divArray = document.getElementsByTagName('div');
+        var bottomDiv = document.getElementById('bottomDiv');
+        // var len = divArray.length;
+        // for(var i = 0; i < len; i++) {
+        //     divArray[i].onmouseenter = function () {
+        //         startMove(this, 400);
+        //     }
+        //     divArray[i].onmouseleave = function () {
+        //         startMove(this, 100);
+        //     }
+        // }
+
+        // divArray[0].onclick = function () {
+        //     startMove(this, 'width', 400);
+        // }
+        // divArray[1].onclick = function () {
+        //     startMove(this, 'height', 300);
+        // }
+        // divArray[2].onclick = function () {
+        //     startMove(this, 'opacity', 50);
+        // }
+        // divArray[3].onclick = function () {
+        //     startMove(this, 'borderWidth', 20);
+        // }
+
+        divArray[0].onclick = function () {
+            startMove(this, {width: 400, height: 400, opacity: 50,left: 200}, function () {
+                startMove(bottomDiv, {width: 400, height: 400, opacity: 50,left: 200,top: 100}, function () {
+                    alert('over');
+                })
+            });
+        }
+        divArray[1].onclick = function () {
+            startMove(this, 'height', 300);
+        }
+
+
+
+        function getStyle(ele, prop) {
+            if (window.getComputedStyle) {
+                return window.getComputedStyle(ele, null)[prop];
+            } else {
+                return ele.currentStyle[prop];
+            }
+        }
+
+
+        // 不同值 对象 加回调机制
+        function startMove(dom, attrObj, callback) {
+            clearInterval(dom.timer);
+            var iSpeed = null,
+                iCur = null;
+            dom.timer = setInterval(function () {
+                for(var attr in attrObj) {
+                    var flag = true;
+                    if(attr == 'opacity') {
+                        iCur = parseFloat(getStyle(dom, attr)) * 100;
+                    }else {
+                        iCur = parseInt(getStyle(dom, attr));
+                    }
+                    iSpeed = (attrObj[attr] - iCur) / 7;
+                    iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                    if(attr == 'opacity') {
+                        dom.style.opacity = (iCur + iSpeed) / 100;
+                    }else {
+                        dom.style[attr] = iCur + iSpeed + 'px';
+                    }
+                    if(iCur != attrObj[attr]) {
+                        flag = false;
+                    }
+                }
+                if(flag) {
+                    clearInterval(dom.timer);
+                    typeof callback == 'function' && callback();
+                }
+            }, 30);
+        }
+
+
+
+
+        // 不同值运动
+        // function startMove(dom, attr, target) {
+        //     clearInterval(dom.timer);
+        //     var iSpeed = null,
+        //         iCur = null;
+        //     dom.timer = setInterval(function () {
+        //         if(attr == 'opacity') {
+        //             iCur = parseFloat(getStyle(dom, attr)) * 100;
+        //         }else {
+        //             iCur = parseInt(getStyle(dom, attr));
+        //         }
+        //         iSpeed = (target - iCur) / 7;
+        //         iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        //         if(iCur == target) {
+        //             clearInterval(dom.timer);
+        //         }
+        //         if(attr == 'opacity') {
+        //             dom.style.opacity = (iCur + iSpeed) / 100;
+        //         }else {
+        //             dom.style[attr] = iCur + iSpeed + 'px';
+        //         }
+        //     }, 30)
+        // }
+
+
+
+
+        // 单值运动
+        // function startMove(dom, target) {
+        //     clearInterval(dom.timer);
+        //     var ispeed = null,
+        //         iCur = null;
+        //     dom.timer = setInterval(function () {
+        //         iCur = parseInt( getStyle(dom, 'width') );
+        //         ispeed = (target - iCur) / 7;
+        //         ispeed = ispeed > 0 ? Math.ceil(ispeed) : Math.floor(ispeed);
+        //         // console.log(ispeed);
+        //         if (iCur == target) {
+        //             clearInterval(dom.timer);
+        //         } else {
+        //             dom.style.width = iCur + ispeed + 'px';
+        //         }
+        //     }, 30)
+        // }
+
+
+        // 透明度变化
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // oDiv.onclick = function () {
+        //     startMove(this, 50);
+        // }
+        // function startMove(dom, target) {
+        //     clearInterval(timer);
+        //     var iSpeed = null,
+        //         iCur = null;
+        //     timer = setInterval(function () {
+        //         iCur = parseFloat(getStyle(dom, 'opacity')) * 100;
+        //         console.log(iCur);
+        //         iSpeed = (target - iCur) / 7;
+        //         iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        //         if(iCur == target) {
+        //             clearInterval(timer);
+        //         }else {
+        //             dom.style.opacity = (iCur + iSpeed) / 100;
+        //         }
+        //     }, 30)
+        // }
+
+
+
+
+        // function startMove(dom, target) {
+        //     clearInterval(timer);
+        //     var ispeed = null;
+        //     timer = setInterval(function () {
+        //         ispeed = (target - dom.offsetLeft) / 7;
+        //         ispeed = ispeed > 0 ? Math.ceil(ispeed) : Math.floor(ispeed);
+        //         // console.log(ispeed);
+        //         if (dom.offsetLeft == target) {
+        //             clearInterval(timer);
+        //         } else {
+        //             dom.style.left = dom.offsetLeft + ispeed + 'px';
+        //         }
+        //     }, 30)
+        // }
+
+
+
+        // 案例
+        // var oDiv = document.getElementsByClassName('wrapper')[0];
+        // oDiv.onmouseenter = function () {
+        //     startMove(this, 0);
+        // }
+        // oDiv.onmouseleave = function () {
+        //     startMove(this, -400);
+        // }
+
+
+
+        // 缓冲运动
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // var btn = document.getElementById('btn');
+        // var timer = null;
+
+        // btn.onclick = function () {
+        //     startMove(oDiv, 300);
+        // }
+
+    </script>
+</body>
+
+</html>

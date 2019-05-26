@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    background-image: radial-gradient(circle at center center, rgba(244,23,234,0.2), rgba(0,0,0,1));
+    overflow: hidden;
+}
+.wrapper {
+    perspective: 1000px;
+}
+.wrapper .box {
+    transform-style: preserve-3d;
+    width: 120px;
+    height: 180px;
+    position: relative;
+    margin: 200px auto;
+}
+.wrapper .box img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-box-reflect: below 10px -webkit-linear-gradient(top, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%);
+}

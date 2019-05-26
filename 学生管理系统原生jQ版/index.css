@@ -1,0 +1,265 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 14px;
+    color: #b3bcc5;
+}
+html,body {
+    height: 100%;
+}
+/* 整体 */
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+}
+/* 头部 */
+.wrapper .header {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    background-color: #354457;
+}
+.wrapper .header .logo {
+    width: 200px;
+    height: 70px;
+    line-height: 70px;
+    padding-left: 20px;
+}
+.wrapper .header .logo img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+/* 左侧导航 */
+.wrapper .left-menu {
+    width: 200px;
+    height: calc(100% - 70px);
+    background-color: #4d5e70;
+    overflow: hidden;
+    float: left;
+}
+.wrapper .left-menu dl dt,
+.wrapper .left-menu dl dd {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+.wrapper .left-menu dl dt {
+    padding-left: 8px;
+    font-weight: bold;
+}
+.wrapper .left-menu dl dd {
+    padding-left: 30px;
+    cursor: pointer;
+}
+.wrapper .left-menu dl dd:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #354457; 
+}
+.wrapper .left-menu dl dd.active {
+    background-color: #ddd;
+    color: #354457;
+}
+/* 右侧 */
+.wrapper .right-content {
+    width: calc(100% - 200px);
+    height: calc(100% - 70px);
+    float: left;
+    overflow: scroll;
+}
+/* 新增学生 */
+.wrapper .right-content .add-student .add-student-form {
+    width: 400px;
+    margin: 50px auto;
+}
+.wrapper .right-content .add-student .add-student-form input,
+.wrapper .right-content .add-student .add-student-form label {
+    font-size: 16px;
+    color: #354457;
+}
+.wrapper .right-content .add-student .add-student-form label {
+    width: 80px;
+    text-align: right;
+    display: inline-block;
+}
+.wrapper .right-content .add-student .add-student-form div {
+    margin: 10px 0;
+}
+.wrapper .right-content .add-student .add-student-form .btn {
+    padding: 5px 30px;
+}
+.wrapper .right-content .add-student .add-student-form .sex span {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #354457;
+}
+.wrapper .right-content .add-student {
+    display: none;
+}
+/* 学生列表 */
+.wrapper .right-content .student-list {
+    display: none;
+}
+.wrapper .right-content .student-list table,
+.wrapper .right-content .student-list table tr th,
+.wrapper .right-content .student-list table tr td {
+    font-size: 14px;
+    text-align: center;
+}
+.wrapper .right-content .student-list table tr th,
+.wrapper .right-content .student-list table tr td {
+    padding: 10px 0;
+}
+.wrapper .right-content .student-list table tr th {
+    color: #646987;
+}
+.wrapper .right-content .student-list table tr td {
+    color: #354457;
+    min-width: 100px;
+}
+.wrapper .right-content .student-list table {
+    width: 100%;
+}
+.wrapper .right-content .student-list table thead {
+    background-color: #e3e8ee;
+}
+.wrapper .right-content .student-list table tbody {
+    background-color: #fff;
+}
+.wrapper .right-content .student-list table button.btn {
+    border-radius: 5px;
+    padding: 3px 10px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+.wrapper .right-content .student-list table button.btn.edit {
+    background-color: #5cb85c;
+}
+.wrapper .right-content .student-list table button.btn.del {
+    background-color: #d9534f;
+}
+.wrapper .right-content .student-list table button.btn.edit:hover {
+    background-color: #398439;
+    border-color: #255625;
+}
+.wrapper .right-content .student-list table button.btn.del:hover {
+    background-color: #c9302c;
+}
+/* 弹出信息 */
+.wrapper .right-content .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+}
+.wrapper .right-content .modal.show {
+    display: block;
+}
+.wrapper .right-content .modal .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.wrapper .right-content .modal .modal-content {
+     background-color: #fff;
+     position: absolute;
+     width: 450px;
+     height: 400px;
+     left: calc(50% - 250px);
+     top: calc(50% - 225px);
+     padding: 20px;
+}
+.wrapper .right-content .modal .modal-content h2 {
+     font-size: 16px;
+}
+.wrapper .right-content .modal .add-student-form {
+     padding: 50px;
+}
+.wrapper .right-content .modal .add-student-form input,
+.wrapper .right-content .modal .add-student-form label {
+    font-size: 16px;
+    color: #354457;
+}
+.wrapper .right-content .modal .add-student-form label {
+    width: 80px;
+    text-align: right;
+    display: inline-block;
+}
+.wrapper .right-content .modal .add-student-form div {
+    margin: 10px 0;
+}
+.wrapper .right-content .modal .add-student-form .btn {
+    padding: 5px 30px;
+}
+.wrapper .right-content .modal .add-student-form .sex span {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #354457;
+}
+
+/* 分页功能 */
+#turn-page {
+    float: right;
+    margin: 10px;
+}
+#turn-page li {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid #ddd;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+#turn-page li.cur-page {
+    background-color: #428bca;
+    border: 1px solid #428bca;
+    color: #fff;
+}
+
+/* 关键字搜索 */
+.search {
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    padding: 0px 20px;
+    background-color: #eee;
+}
+.search label {
+    font-size: 16px;
+    color: #646987;
+    font-weight: 800;
+}
+
+.search input {
+    font-size: 16px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    outline: none;
+}
+#search-submit {
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    outline: none;
+    display: inline-block;
+    border: none;
+    background-color: #354457;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    vertical-align: center;
+    /* border: 1px solid #000; */
+}
+#search-submit:hover {
+    background: #1e2936;
+}

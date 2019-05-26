@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "he-tag": "/components/tag/cmp"
+    }
+}

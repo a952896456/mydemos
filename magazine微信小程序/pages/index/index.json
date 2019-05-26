@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+      "he-articleList": "/components/articleList/cmp",
+      "he-nav": "/components/nav/cmp",
+      "he-recommend": "/components/recommend/cmp",
+      "he-tagList": "/components/tagList/cmp",
+      "he-add": "/components/add/cmp",
+      "he-loading": "/components/loading/cmp"
+  }
+}

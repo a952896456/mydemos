@@ -1,0 +1,50 @@
+
+<!-- <he-bigImg img-src="/9.jpg" 
+                main-title="顺达副食店打阿斯顿阿斯蒂芬阿斯顿发士大夫"></he-bigImg>
+-->
+
+<!-- <he-pureText main-title="发生发顺丰法撒旦是的安抚" 
+             sub-head="阿斯达大神打"></he-pureText>   -->
+
+<!-- <he-imgText main-title="奥术大师阿斯顿阿斯顿阿斯顿" 
+            sub-head="大声道萨克就立刻发"
+            img-src="/9.jpg"></he-imgText> -->
+
+<!-- <he-nineImg></he-nineImg> -->
+
+<!-- <he-video src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
+          poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555662833689&di=f61f374438e5e4845f4f2bfab6d9e44c&imgtype=0&src=http%3A%2F%2Fimg.mp.sohu.com%2Fupload%2F20170726%2Ff4d0f46112904f75bb15c729318d6070_th.png"
+          duration="41'"
+          main-title="奥术大师案发时发顺丰暗示"
+          video-id="201904"></he-video> -->
+
+<!-- <he-tag tag="心理" tag-id="3"></he-tag> -->
+
+<!-- <he-more tag="心理"></he-more> -->
+
+<!-- <he-like like="true"></he-like> -->
+
+<!-- <he-article  wx:for="{{articleList}}"
+             wx:key="{{artId}}"   
+             article-detail="{{item}}"></he-article> -->
+
+<he-nav class="nav" catch:nav="onNav"></he-nav>
+
+<he-recommend   magazine-id="{{magazineId}}"
+                recommend="{{recommend}}" 
+                class="recommend"></he-recommend>
+
+<he-tagList mark-list="{{markList}}">
+    <!-- <view slot="before" >+</view> -->
+    <he-add slot="before" class="add" wx:if="{{magazineId === 0}}"></he-add>
+    <view slot="after" class="to-catalog" catch:tap="onCatalog" wx:if="{{magazineId === 0}}">...</view>
+</he-tagList>
+
+<he-articleList  article-list="{{articleList}}"
+                 more="{{getMore}}"
+                 magazine-id="{{magazineId}}"></he-articleList>
+
+<view class="loading-container" wx:if="{{loading}}">
+    <he-loading class="loading"></he-loading>
+</view>
+
